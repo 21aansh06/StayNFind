@@ -1,0 +1,151 @@
+.inter-text {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+  }
+  body{
+    font-family: inter-text;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .container{
+    flex: 1;
+  }
+.showImg{
+    width: 350px;
+    height: 350px;
+    margin-left: 50px ;
+}
+h1{
+    text-align: center;
+}
+p{
+    font-size: larger;
+    font-weight: 400;
+  
+}
+/* navbar */
+.navbar{
+    background-color: white;
+}
+
+.f-link a{
+    text-decoration: none;
+    color: black;
+    padding: 5px;
+}
+.f-link a:hover{
+    text-decoration: underline;
+}
+.f-link{
+    width: 100%;
+
+}
+
+.f-info{
+    background-color: gainsboro;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content:space-evenly ;
+    
+}
+.f-brand , .f-link , .f-socials{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+}
+
+.f-socials i {
+    font-size: 1.5rem;
+    margin: 5px;
+    opacity: 0.75;
+}
+.f-socials i:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+/* card */
+.card{
+    border: none;
+    margin-bottom: 2rem !important;
+}
+.card-img-top{
+    border-radius: 10px;
+    width: 100%;
+    object-fit: cover;
+    height: 20rem;
+}
+.card-body{
+    padding: 0px;
+}
+.card-text{
+    font-size: 1rem;
+}
+.card-text p{
+    font-weight: 500;
+}
+.showListing{
+    text-decoration: none;
+    /* opacity: 0.2; */
+}
+.card-img-overlay{
+    opacity: 0;
+}
+.card-img-overlay:hover{
+    opacity: 0.2;
+    background-color: white;
+}
+
+.centre-card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.5rem;
+    /* height: 100vh; Ensures it stays centered in the viewport */
+  }
+  .btns{
+    display: flex;
+    /* align-content: space-between;
+    justify-content: center; */
+  }
+  .btns button{
+    margin-left: 3rem;
+    margin-top: 5px;
+  }
+  .comment-title{
+    font-size: 1.3rem;
+    
+  }
+  .review-title{
+    text-align: center;
+  }
+  .reviewcard {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.reviewcard:hover {
+    transform: scale(1.05);
+}
+
+.card-title {
+    font-weight: bold;
+}
+
+.card-text {
+    font-style: italic;
+    font-size: 1.1rem;
+}
+.reviewer-name {
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}

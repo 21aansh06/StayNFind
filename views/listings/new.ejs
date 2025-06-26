@@ -1,0 +1,62 @@
+<% layout("layouts/boilerplate") %>
+
+    <body>
+        <div class="row">
+            <div class="col-8 offset-2">
+                <br>
+                <h2>Create New Listing</h2>
+                <form action="/listings" method="post" novalidate class="needs-validation" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Enter Title</label>
+                        <input type="text" name="title" class="form-control" placeholder="Enter title" required>
+                        <div class="invalid-feedback">
+                            Please provide a Title.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Enter Description</label>
+                        <input type="text" name="description" class="form-control" placeholder="Enter description"
+                            required>
+                        <div class="invalid-feedback">
+                            Please provide a Description.
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="mb-3 col-4">
+                            <label for="price" class="form-label">Enter Price</label>
+                            <input type="number" name="price" class="form-control" placeholder="Enter price" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid price.
+                            </div>
+                        </div>
+                        <div class="mb-3 col-8">
+                            <label for="country" class="form-label">Enter Country</label>
+                            <input type="text" name="country" class="form-control" placeholder="India" required>
+                            <div class="invalid-feedback">
+                                Please provide a valid country.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="location" class="form-label">Enter Location</label>
+                        <input type="text" name="location" class="form-control" placeholder="Amritsar,Punjab" required>
+                        <div class="invalid-feedback">
+                            Please provide a valid location.
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image[url]" class="form-label">Upload Image </label>
+                        <input type="file" name="image[url]" class="form-control" placeholder="Enter image url"
+                            required>
+                        <div class="invalid-feedback">
+                            Please provide a valid Image URL.
+                        </div>
+                    </div>
+                    <button class="btn btn-outline-primary">Add</button>
+                </form>
+            </div>
+        </div>
+        <br>
+        <script src="/src/validation.js"></script>
+    </body>

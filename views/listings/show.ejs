@@ -1,0 +1,162 @@
+<% layout("layouts/boilerplate") %>
+
+    <body>
+
+        <div class="centre-card">
+            <div class="card card2" style="width: 50rem;">
+                <img src="<%=specificListing.image.url%>" class="card-img-top " alt="...">
+                <div class="card-body">
+                    <h5 class="card-title" style="font-weight: bolder;">
+                        <%=specificListing.title%>
+                    </h5>
+
+                </div>
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">Description: <%=specificListing.description%>
+                    </li>
+                    <li class="list-group-item">Price: ₹ <%=specificListing.price%>
+                    </li>
+                    <li class="list-group-item">Location: <%=specificListing.location%>
+                    </li>
+                    <li class="list-group-item">Country: <%=specificListing.country%>
+                    </li>
+                    <li class="list-group-item">Owner: <%=specificListing.owner.username%>
+                    </li>
+                </ul>
+                <% if (currUser && currUser._id.toString()===specificListing.owner._id.toString()) { %>
+                    <div class="card-body btns">
+                        <form action="/listings/<%=specificListing._id%>/edit">
+                            <button class="btn btn-dark">Edit</button>
+                        </form>
+                        <form method="post" action="/listings/<%=specificListing._id%>?_method=DELETE">
+                            <button class="btn btn-danger">Delete</button>
+
+                        </form>
+                    </div>
+                    <%}%>
+                        <hr>
+                        <%if(currUser){%>
+                            <form action="/listings/<%=specificListing._id%>/reviews" method="post"
+                                class="needs-validation" novalidate>
+                                <h3 class="review-title">Write a Review</h3>
+                                <!-- <label for="range" class="form-label">Rating</label> -->
+                                <!-- <input type="range" min="1" max="5" name="rating" class="form-range" required> -->
+                                <fieldset class="starability-grow">
+                                    <legend>Rating:</legend>
+                                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0"
+                                        checked aria-label="No rating." />
+                                    <input type="radio" id="first-rate1" name="rating" value="1" />
+                                    <label for="first-rate1" title="Terrible">1 star</label>
+                                    <input type="radio" id="first-rate2" name="rating" value="2" />
+                                    <label for="first-rate2" title="Not good">2 stars</label>
+                                    <input type="radio" id="first-rate3" name="rating" value="3" />
+                                    <label for="first-rate3" title="Average">3 stars</label>
+                                    <input type="radio" id="first-rate4" name="rating" value="4" />
+                                    <label for="first-rate4" title="Very good">4 stars</label>
+                                    <input type="radio" id="first-rate5" name="rating" value="5" />
+                                    <label for="first-rate5" title="Amazing">5 stars</label>
+                                </fieldset>
+                                <label for="comment" class="form-label comment-title">Comment:</label>
+                                <textarea name="comment" id="comment" class="form-control w-100" rows="5"
+                                    required></textarea>
+
+                                <div class="invalid-feedback">
+                                    Please provide a comment.
+                                </div>
+                                <div class="d-flex justify-content-center mt-3">
+                                    <button class="btn btn-primary">Submit</button>
+                                </div>
+
+                            </form>
+                            <hr>
+                            <%}%>
+                                <h4 class="text-center mb-4">All Reviews</h4>
+                                <div class="row justify-content-center">
+                                    <% for(let review of specificListing.reviews) { %>
+                                        <div class="col-md-6 mb-3">
+                                            <div class="card reviewcard shadow-lg border-0">
+                                                <div class="card-body">
+                                                    <% if (review.createdBy) { %>
+                                                        <h5 class="reviewer-name">
+                                                            @<%= review.createdBy.username %>
+                                                        </h5>
+                                                        <% } else { %>
+                                                            <h5 class="reviewer-name text-muted">Unknown User</h5>
+                                                            <% } %>
+                                                                <h5 class="card-title text-primary">
+                                                                    <p class="starability-result"
+                                                                        data-rating="<%=review.rating%>">
+                                                                    </p>
+                                                                </h5>
+                                                                <p class="card-text">"<%= review.comment %>"</p>
+                                                                <small class="text-muted">
+                                                                    Reviewed on <%= review.createdAt.toLocaleString() %>
+                                                                </small>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <% } %>
+                                </div>
+
+            </div>
+        </div>
+        <div class="container my-5">
+            <h4 class="text-center mb-3">Map Location</h4>
+            <div class="map-wrapper mx-auto">
+                <div id="map"></div>
+            </div>
+        </div>
+
+        <script src="/src/app.js"></script>
+        <script src="/src/validation.js"></script>
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script>
+            const locationName = "<%= specificListing.location %>, <%= specificListing.country %>";
+
+            async function loadMap() {
+                try {
+                    const res = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locationName)}`);
+                    const data = await res.json();
+
+                    if (data && data.length > 0) {
+                        const lat = parseFloat(data[0].lat);
+                        const lon = parseFloat(data[0].lon);
+
+                        // Initialize the map with moderate zoom
+                        const map = L.map('map').setView([lat, lon], 12);
+
+                        // Load OpenStreetMap tiles
+                        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                            attribution: '&copy; OpenStreetMap contributors'
+                        }).addTo(map);
+
+                        // Add marker with click-to-zoom
+                        const marker = L.marker([lat, lon]).addTo(map)
+                            .bindPopup(`<b><%= specificListing.title %></b><br>${locationName}`);
+
+                        marker.on('click', () => {
+                            map.flyTo([lat, lon], 16, {
+                                animate: true,
+                                duration: 1.2 // seconds
+                            });
+                            marker.openPopup();
+                        });
+                    } else {
+                        document.getElementById('map').innerHTML = "Location not found.";
+                    }
+                } catch (error) {
+                    console.error(error);
+                    document.getElementById('map').innerHTML = "Failed to load map.";
+                }
+            }
+
+            loadMap();
+        </script>
+
+
+
+
+
+    </body>

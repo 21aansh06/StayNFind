@@ -1,0 +1,45 @@
+<% layout("layouts/boilerplate") %>
+    <body>
+        <br>
+        <div class="col-8 offset-2">
+            <h2>
+                <%=editListing.title%>
+            </h2>
+            <form method="post" action="/listings/<%=editListing._id%>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="title" class="form-label">Enter new Title</label>
+                    <input name="title"  class="form-control"
+                        value="<%=editListing.title%>" required></input>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Enter new Description</label>
+                    <input name="description"  class="form-control" rows="7"
+                        value="<%=editListing.description%>" required></input>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload new Image </label>
+                    <input name="image[url]"  type="file" class="form-control"
+                        value="<%=editListing.image.url%>"></input>
+                </div>
+                <div class="row mb-4">
+                    <div class="mb-3 col-4">
+                        <label for="price" class="form-label">Enter new Price</label>
+                        <input name="price" class="form-control" value="<%=editListing.price%>" required></input>
+                    </div>
+                    <div class="mb-3 col-8">
+                        <label for="country" class="form-label">Enter new Country</label>
+                        <input name="country" class="form-control" value="<%=editListing.country%>" required></input>
+                    </div>
+                </div>
+                <div class="mb-3 ">
+                    <label for="location" class="form-label">Enter new Location</label>
+                    <input name="location" class="form-control" value="<%=editListing.location%>" required></input>
+                </div>
+
+                <button class="btn btn-outline-success">Edit</button>
+            </form>
+        </div>
+        <script src="/src/validation.js"></script>
+
+
+    </body>
