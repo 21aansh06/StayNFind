@@ -84,6 +84,9 @@ app.use("/", userRouter);
 app.get("/terms", (req,res)=>{
     res.render("./layouts/terms.ejs")
 })
+app.get('/', (req, res) => {
+  res.redirect('/listings');
+});
 app.get("/privacy", (req,res)=>{
     res.render("./layouts/privacy.ejs")
 })
