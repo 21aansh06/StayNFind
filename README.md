@@ -4,7 +4,7 @@ A full-stack accommodation listing and review platform where users can list, bro
 
 ## 🔗 Live Demo
 
-🌐 [Visit StayNFind](https://staynfind.onrender.com/listings)
+🌐 [Visit StayNFind](https://staynfind.onrender.com)
 
 ## 📌 Features
 
